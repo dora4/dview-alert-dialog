@@ -119,16 +119,16 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         ).toInt()
     }
 
-    fun show(contentView: View, build: DoraAlertDialog.() -> Unit) {
+    fun show(contentView: View, build: (DoraAlertDialog.() -> Unit)? = null) {
         this.view = contentView
-        build()
+        build?.invoke(this)
         create()
         show()
     }
 
-    fun show(message: String, build: DoraAlertDialog.() -> Unit) {
+    fun show(message: String, build: (DoraAlertDialog.() -> Unit)? = null) {
         this.message = message
-        build()
+        build?.invoke(this)
         create()
         show()
     }
