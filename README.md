@@ -16,7 +16,7 @@ dependencies {
     implementation 'com.github.dora4:dview-alert-dialog:1.1'
 }
 ```
-使用控件
+#### 使用控件
 ```kotlin
 DoraAlertDialog(this).show("提示信息") {
             title("系统消息")
