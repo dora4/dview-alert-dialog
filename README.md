@@ -4,16 +4,16 @@ dview-alert-dialog
 
 #### gradle依赖配置
 
-```groovy
+```kotlin
 // 添加以下代码到项目根目录下的build.gradle
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
+        maven { setUrl("https://jitpack.io") }
     }
 }
 // 添加以下代码到app模块的build.gradle
 dependencies {
-    implementation 'com.github.dora4:dview-alert-dialog:1.1'
+    implementation("com.github.dora4:dview-alert-dialog:1.1")
 }
 ```
 #### 使用控件
