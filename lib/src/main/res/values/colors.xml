@@ -4,6 +4,7 @@
     <color name="colorPrimary">#04d5d5</color>
     <color name="white">#FFFFFF</color>
     <color name="color_dialog_line_bg">#EBEDF0</color>
+    <color name="color_dialog_bg_selected">#80808080</color>
     <color name="text_btn_cancel">#494949</color>
     <color name="text_btn_confirm">@color/colorPrimary</color>
     <color name="text_dialog_content_single">#010101</color>
