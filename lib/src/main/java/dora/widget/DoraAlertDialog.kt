@@ -39,8 +39,8 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     private var messageTextSize = 15f
     private var title: String = ""
     private var message: String = ""
-    private var positiveLabel: String = "确认"
-    private var negativeLabel: String = "取消"
+    private lateinit var positiveLabel: String
+    private lateinit var negativeLabel: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +134,8 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     }
 
     private fun init() {
+        positiveLabel = context.getString(R.string.confirm)
+        negativeLabel = context.getString(R.string.cancel)
         val dialogLayout = LinearLayout(context)
         dialogLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
