@@ -9,10 +9,10 @@ import dora.widget.alertdialog.R
 class DoraSingleButtonDialog(activity: Activity, private var listener: DialogListener?) :
     BaseTipsDialog(activity), View.OnClickListener {
 
-    var tvContent: TextView? = null
-    var tvConfirm: TextView? = null
-    var llContainer: LinearLayout? = null
-    var buttonType: String? = null
+    private var tvContent: TextView? = null
+    private var tvConfirm: TextView? = null
+    private var llContainer: LinearLayout? = null
+    private lateinit var buttonType: String
 
     init {
         init()
@@ -28,7 +28,7 @@ class DoraSingleButtonDialog(activity: Activity, private var listener: DialogLis
         tvConfirm!!.setOnClickListener(this)
     }
 
-    fun show(buttonType: String?, message: String?) {
+    fun show(buttonType: String, message: String) {
         this.buttonType = buttonType
         tvContent!!.text = message
         show()
@@ -44,6 +44,6 @@ class DoraSingleButtonDialog(activity: Activity, private var listener: DialogLis
     }
 
     interface DialogListener {
-        fun onButtonClick(buttonType: String?)
+        fun onButtonClick(buttonType: String)
     }
 }

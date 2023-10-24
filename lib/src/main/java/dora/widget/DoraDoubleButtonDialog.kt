@@ -9,12 +9,12 @@ import dora.widget.alertdialog.R
 class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogListener) : BaseTipsDialog(activity),
     View.OnClickListener {
 
-    var tvContent: TextView? = null
-    var tvCancel: TextView? = null
-    var tvConfirm: TextView? = null
-    var tvTitle: TextView? = null
-    var rlContainer: RelativeLayout? = null
-    var buttonType: String? = null
+    private var tvContent: TextView? = null
+    private var tvCancel: TextView? = null
+    private var tvConfirm: TextView? = null
+    private var tvTitle: TextView? = null
+    private var rlContainer: RelativeLayout? = null
+    private lateinit var buttonType: String
 
     init {
         init()
@@ -33,16 +33,13 @@ class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogLis
         tvConfirm!!.setOnClickListener(this)
     }
 
-    fun show(buttonType: String?, message: String?, title: String?) {
+    @JvmOverloads
+    fun show(buttonType: String, message: String, title: String? = null) {
         this.buttonType = buttonType
         tvContent!!.text = message
-        tvTitle!!.text = title
-        show()
-    }
-
-    fun show(buttonType: String?, message: String?) {
-        this.buttonType = buttonType
-        tvContent!!.text = message
+        title?.let {
+            tvTitle!!.text = it
+        }
         show()
     }
 
@@ -57,6 +54,6 @@ class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogLis
     }
 
     interface DialogListener {
-        fun onButtonClick(buttonType: String?)
+        fun onButtonClick(buttonType: String)
     }
 }
