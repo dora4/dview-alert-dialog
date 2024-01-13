@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">xác nhận</string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="warm_prompt">Lời khuyên tử tế</string>
+</resources>

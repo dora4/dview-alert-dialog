@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">ยืนยัน</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="warm_prompt">เคล็ดลับดีๆ</string>
+</resources>

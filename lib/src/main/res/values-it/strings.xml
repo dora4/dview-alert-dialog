@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">Confermare</string>
+    <string name="cancel">Annulla</string>
+    <string name="warm_prompt">Consigli gentili</string>
+</resources>

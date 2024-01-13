@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">bestätigen</string>
+    <string name="cancel">Stornieren</string>
+    <string name="warm_prompt">Freundliche Tipps</string>
+</resources>

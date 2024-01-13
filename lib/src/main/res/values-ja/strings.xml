@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">確認する</string>
+    <string name="cancel">キャンセル</string>
+    <string name="warm_prompt">親切なヒント</string>
+</resources>
