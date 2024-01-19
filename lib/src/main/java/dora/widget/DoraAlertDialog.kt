@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.text.TextUtils.TruncateAt
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -16,8 +17,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.LayoutInflaterCompat
 import dora.widget.alertdialog.R
 
 class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
@@ -117,6 +120,17 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             TypedValue.COMPLEX_UNIT_DIP,
             dpVal, context.resources.displayMetrics
         ).toInt()
+    }
+
+    fun <T : View> getView(viewId: Int) : T? {
+        return view?.findViewById<T>(viewId)
+    }
+
+    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.() -> Unit)? = null) {
+        this.view = LayoutInflater.from(context).inflate(layoutId, null)
+        build?.invoke(this)
+        create()
+        show()
     }
 
     fun show(contentView: View, build: (DoraAlertDialog.() -> Unit)? = null) {
