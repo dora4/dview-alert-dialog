@@ -2,7 +2,7 @@ dview-alert-dialog
 ![Release](https://jitpack.io/v/dora4/dview-alert-dialog.svg)
 --------------------------------
 
-#### gradle依赖配置
+#### Gradle依赖配置
 
 ```kotlin
 // 添加以下代码到项目根目录下的build.gradle
