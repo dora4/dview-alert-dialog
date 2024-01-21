@@ -20,7 +20,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
-import androidx.core.view.LayoutInflaterCompat
 import dora.widget.alertdialog.R
 
 class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
