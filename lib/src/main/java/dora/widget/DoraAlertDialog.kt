@@ -157,7 +157,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         negativeLabel = context.getString(R.string.cancel)
         val dialogLayout = LinearLayout(context)
         dialogLayout.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         dialogLayout.orientation = LinearLayout.VERTICAL
@@ -200,7 +200,12 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         if (this.view != null) {
-            layoutContainer.addView(this.view)
+            val params = RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.addRule(RelativeLayout.CENTER_IN_PARENT)
+            layoutContainer.addView(this.view, params)
         } else {
             val messageTextView = TextView(context)
             messageTextView.text = message
