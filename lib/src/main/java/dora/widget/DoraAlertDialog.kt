@@ -41,6 +41,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     private var messageTextSize = 15f
     private var title: String = ""
     private var message: String = ""
+    private var buttonVisible = true
     private lateinit var positiveLabel: String
     private lateinit var negativeLabel: String
 
@@ -55,6 +56,10 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
 
     fun height(height: Int) {
         this.height = height
+    }
+
+    fun hideBottomButtons() {
+        this.buttonVisible = false
     }
 
     fun size(width: Int, height: Int) {
@@ -231,7 +236,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             dismiss()
             onNegative?.onClick(it)
         }
-        if (positiveLabel.isNotEmpty()) {
+        if (positiveLabel.isNotEmpty() && buttonVisible) {
             positiveButton!!.text = positiveLabel
             positiveButton!!.setTextColor(themeColor)
         } else {
@@ -256,7 +261,9 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         bottomLayout.addView(negativeButton)
         bottomLayout.addView(verticalDivider)
         bottomLayout.addView(positiveButton)
-        dialogLayout.addView(bottomLayout)
+        if (buttonVisible) {
+            dialogLayout.addView(bottomLayout)
+        }
         val params = window!!.attributes
         if (isFullScreen) {
             params.width = WindowManager.LayoutParams.MATCH_PARENT
