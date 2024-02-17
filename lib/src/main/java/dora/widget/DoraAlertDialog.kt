@@ -60,6 +60,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
 
     fun hideBottomButtons() {
         this.buttonVisible = false
+        canCancel(true)
     }
 
     fun size(width: Int, height: Int) {
@@ -156,7 +157,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         negativeLabel = context.getString(R.string.cancel)
         val dialogLayout = LinearLayout(context)
         dialogLayout.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         dialogLayout.orientation = LinearLayout.VERTICAL
@@ -236,7 +237,7 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             dismiss()
             onNegative?.onClick(it)
         }
-        if (positiveLabel.isNotEmpty() && buttonVisible) {
+        if (positiveLabel.isNotEmpty()) {
             positiveButton!!.text = positiveLabel
             positiveButton!!.setTextColor(themeColor)
         } else {
@@ -257,7 +258,9 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             LinearLayout.LayoutParams(dp1, LinearLayout.LayoutParams.MATCH_PARENT)
         verticalDivider.setBackgroundColor(-0x353536)
         dialogLayout.addView(layoutContainer)
-        dialogLayout.addView(horizontalDivider)
+        if (buttonVisible) {
+            dialogLayout.addView(horizontalDivider)
+        }
         bottomLayout.addView(negativeButton)
         bottomLayout.addView(verticalDivider)
         bottomLayout.addView(positiveButton)
