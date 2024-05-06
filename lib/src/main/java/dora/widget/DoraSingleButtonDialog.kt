@@ -6,13 +6,20 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import dora.widget.alertdialog.R
 
-class DoraSingleButtonDialog(activity: Activity, private var listener: DialogListener?) :
+/**
+ * 简版提示信息弹窗，不怎么会用到。
+ */
+class DoraSingleButtonDialog(activity: Activity, private var listener: DialogListener? = null) :
     BaseTipsDialog(activity), View.OnClickListener {
 
-    private var tvContent: TextView? = null
-    private var tvConfirm: TextView? = null
-    private var llContainer: LinearLayout? = null
-    private lateinit var buttonType: String
+    private lateinit var tvContent: TextView
+    private lateinit var tvConfirm: TextView
+    private lateinit var llContainer: LinearLayout
+
+    /**
+     * 不同业务使用不同的事件类型，便于复用。
+     */
+    private lateinit var eventType: String
 
     init {
         initViews()
@@ -24,26 +31,25 @@ class DoraSingleButtonDialog(activity: Activity, private var listener: DialogLis
         tvContent = findViewById(R.id.tvContent)
         tvConfirm = findViewById(R.id.tvConfirm)
         llContainer = findViewById(R.id.llContainer)
-        llContainer!!.setOnClickListener(this)
-        tvConfirm!!.setOnClickListener(this)
+        llContainer.setOnClickListener(this)
+        tvConfirm.setOnClickListener(this)
     }
 
-    fun show(buttonType: String, message: String) {
-        this.buttonType = buttonType
-        tvContent!!.text = message
+    fun show(eventType: String, message: String) {
+        this.eventType = eventType
+        tvContent.text = message
         show()
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.tvConfirm -> if (listener != null) {
-                listener!!.onButtonClick(buttonType)
-                dismiss()
+            R.id.tvConfirm ->  {
+                listener?.onButtonClick(eventType)
             }
         }
     }
 
     interface DialogListener {
-        fun onButtonClick(buttonType: String)
+        fun onButtonClick(eventType: String)
     }
 }

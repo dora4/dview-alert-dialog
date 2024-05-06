@@ -6,15 +6,22 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import dora.widget.alertdialog.R
 
-class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogListener) : BaseTipsDialog(activity),
+/**
+ * 带有确认和取消两个按钮的弹窗，能够满足大部分提示信息弹窗需求。
+ */
+class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogListener? = null) : BaseTipsDialog(activity),
     View.OnClickListener {
 
-    private var tvContent: TextView? = null
-    private var tvCancel: TextView? = null
-    private var tvConfirm: TextView? = null
-    private var tvTitle: TextView? = null
-    private var rlContainer: RelativeLayout? = null
-    private lateinit var buttonType: String
+    private lateinit var tvContent: TextView
+    private lateinit var tvCancel: TextView
+    private lateinit var tvConfirm: TextView
+    private lateinit var tvTitle: TextView
+    private lateinit var rlContainer: RelativeLayout
+
+    /**
+     * 不同业务使用不同的事件类型，便于复用。
+     */
+    private lateinit var eventType: String
 
     init {
         initViews()
@@ -28,32 +35,46 @@ class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogLis
         tvCancel = findViewById(R.id.tvCancel)
         tvConfirm = findViewById(R.id.tvConfirm)
         rlContainer = findViewById(R.id.rlContainer)
-        tvCancel!!.setOnClickListener(this)
-        rlContainer!!.setOnClickListener(this)
-        tvConfirm!!.setOnClickListener(this)
+        tvCancel.setOnClickListener(this)
+        rlContainer.setOnClickListener(this)
+        tvConfirm.setOnClickListener(this)
     }
 
     @JvmOverloads
-    fun show(buttonType: String, message: String, title: String? = null) {
-        this.buttonType = buttonType
-        tvContent!!.text = message
+    fun show(eventType: String,
+             message: String,
+             title: String? = null,
+             positiveLabel: String? = null,
+             negativeLabel: String? = null) {
+        this.eventType = eventType
+        tvContent.text = message
         title?.let {
-            tvTitle!!.text = it
+            tvTitle.text = it
+        }
+        positiveLabel?.let {
+            tvConfirm.text = positiveLabel
+        }
+        negativeLabel?.let {
+            tvCancel.text = negativeLabel
         }
         show()
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.tvCancel -> dismiss()
             R.id.tvConfirm -> {
-                listener.onButtonClick(buttonType)
+                listener?.onConfirm(eventType)
+                dismiss()
+            }
+            R.id.tvCancel -> {
+                listener?.onCancel(eventType)
                 dismiss()
             }
         }
     }
 
     interface DialogListener {
-        fun onButtonClick(buttonType: String)
+        fun onConfirm(eventType: String)
+        fun onCancel(eventType: String)
     }
 }
