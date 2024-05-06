@@ -15,11 +15,11 @@ class DoraSingleButtonDialog(activity: Activity, private var listener: DialogLis
     private lateinit var buttonType: String
 
     init {
-        init()
+        initViews()
         setCanceledOnTouchOutside(true)
     }
 
-    override fun init() {
+    override fun initViews() {
         setContentView(R.layout.dialog_dview_single_button)
         tvContent = findViewById(R.id.tvContent)
         tvConfirm = findViewById(R.id.tvConfirm)

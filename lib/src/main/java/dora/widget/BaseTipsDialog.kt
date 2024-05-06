@@ -13,12 +13,13 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
 import dora.widget.alertdialog.R
 
 open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog(context, themeResId) {
 
-    var linearLayoutRoot: LinearLayout? = null
+    private var linearLayoutRoot: LinearLayout? = null
     var contentView: View? = null
         private set
 
@@ -27,12 +28,12 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
     init {
         try {
             setOwnerActivity(context)
-            baseInit()
+            superInitViews()
         } catch (ignore: Exception) {
         }
     }
 
-    private fun baseInit() {
+    private fun superInitViews() {
         linearLayoutRoot = LinearLayout(context)
         linearLayoutRoot!!.setBackgroundColor(Color.parseColor("#00000000"))
         linearLayoutRoot!!.gravity = Gravity.CENTER
@@ -81,19 +82,18 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
         }
         val height = v.measuredHeight
         val location = IntArray(2)
-        v.getLocationInWindow(location) //若是普通activity,则y坐标为可见的状态栏高度+可见的标题栏高度+view左上角到标题栏底部的距离.
-        //减去状态栏高度
+        v.getLocationInWindow(location) // 若是普通activity，则y坐标为可见的状态栏高度+可见的标题栏高度+view左上角到标题栏底部的距离。
+        // 减去状态栏高度
         var statusBarHeight = 0
-        //获取status_bar_height资源的ID
+        // 获取status_bar_height资源的ID
         val resources = v.context.resources
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
+            // 根据资源ID获取响应的尺寸值
             statusBarHeight = resources.getDimensionPixelSize(resourceId)
         }
-        val isSamSung = false //三星s8适配 18.5:9屏幕
-        val showTopPadding: Int
-        showTopPadding = if (isSamSung) {
+        val isSamSung = false // 三星s8适配 18.5:9屏幕
+        val showTopPadding: Int = if (isSamSung) {
             location[1] + height
         } else {
             location[1] - statusBarHeight + height
@@ -113,7 +113,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
         val height = v.measuredHeight
         val location = IntArray(2)
         v.getLocationInWindow(location)
-        // 若是普通activity,则y坐标为可见的状态栏高度+可见的标题栏高度+view左上角到标题栏底部的距离.
+        // 若是普通activity，则y坐标为可见的状态栏高度+可见的标题栏高度+view左上角到标题栏底部的距离。
         // 减去状态栏高度
         var statusBarHeight = 0
         // 获取status_bar_height资源的ID
@@ -124,8 +124,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
             statusBarHeight = resources.getDimensionPixelSize(resourceId)
         }
         val isSamsung = false // 三星s8适配 18.5:9屏幕
-        val showTopPadding: Int
-        showTopPadding = if (isSamsung) {
+        val showTopPadding: Int = if (isSamsung) {
             location[1] - height
         } else {
             location[1] - statusBarHeight - height
@@ -135,13 +134,12 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
     }
 
     /**
-     * 设置窗口的显示和隐藏动画
+     * 设置窗口的显示和隐藏动画。
      */
-    fun setAnimations(resId: Int) {
+    fun setWindowAnimations(@StyleRes resId: Int) {
         window!!.setWindowAnimations(resId)
     }
 
-    // -----------------------padding
     fun paddingTop(top: Int): BaseTipsDialog {
         linearLayoutRoot!!.setPadding(
             linearLayoutRoot!!.paddingLeft, top,
@@ -180,7 +178,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
     }
 
     /**
-     * 设置窗口上下左右的边距
+     * 设置窗口上下左右的边距。
      */
     fun padding(left: Int, top: Int, right: Int, bottom: Int): BaseTipsDialog {
         linearLayoutRoot!!.setPadding(left, top, right, bottom)
@@ -198,7 +196,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
             )
         }
         super.setContentView(linearLayoutRoot!!, params)
-        //设置全屏生效
+        // 设置全屏生效
         window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         return this
     }
@@ -214,14 +212,13 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
         )
     }
 
-    // ------------------------setContentView
-    override fun setContentView(layoutResID: Int) {
-        val view = LayoutInflater.from(context).inflate(layoutResID, null)
+    override fun setContentView(@LayoutRes layoutId: Int) {
+        val view = LayoutInflater.from(context).inflate(layoutId, null)
         this.setContentView(view, null)
     }
 
-    fun setContentView(layoutResID: Int, params: ViewGroup.LayoutParams?) {
-        val view = LayoutInflater.from(context).inflate(layoutResID, null)
+    fun setContentView(@LayoutRes layoutId: Int, params: ViewGroup.LayoutParams?) {
+        val view = LayoutInflater.from(context).inflate(layoutId, null)
         this.setContentView(view, params)
     }
 
@@ -277,5 +274,5 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog
         return super.dispatchTouchEvent(event)
     }
 
-    protected open fun init() {}
+    protected open fun initViews() {}
 }
