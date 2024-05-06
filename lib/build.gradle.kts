@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace = "dora.widget.alertdialog"
-    compileSdk = 32
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 34
     }
     buildTypes {
         release {
@@ -36,7 +36,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = rootProject.project.name
-                version = "1.12"
+                version = "1.13"
             }
         }
     }

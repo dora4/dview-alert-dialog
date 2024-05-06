@@ -4,6 +4,8 @@ import android.app.Activity
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import dora.widget.alertdialog.R
 
 /**
@@ -56,6 +58,26 @@ class DoraDoubleButtonDialog(activity: Activity, private var listener: DialogLis
         }
         negativeLabel?.let {
             tvCancel.text = negativeLabel
+        }
+        show()
+    }
+
+    /**
+     * 补充一个传入资源id的。
+     */
+    fun show(eventType: String,
+             message: String,
+             title: String? = null,
+             @StringRes positiveResId: Int,
+             @StringRes negativeResId: Int? = null) {
+        this.eventType = eventType
+        tvContent.text = message
+        title?.let {
+            tvTitle.text = it
+        }
+        tvConfirm.text = ContextCompat.getString(context, positiveResId)
+        negativeResId?.let {
+            tvCancel.text = ContextCompat.getString(context, it)
         }
         show()
     }
