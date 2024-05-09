@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/selector_dview_dialog_btn_left"
+                android:background="@drawable/selector_dview_dialog_btn_left_right"
                 android:gravity="center"
                 android:text="@string/confirm"
                 android:textColor="@color/text_btn_confirm"

@@ -3,29 +3,34 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
-
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.namespace == "com.github.dcendents") {
-                useModule("com.github.dcendents:android-maven-gradle-plugin:1.5")
+            if (requested.id.namespace == "com.android.tools.build") {
+                useModule("com.android.tools.build:gradle:4.1.2")
             }
             if (requested.id.namespace == "org.jetbrains.kotlin") {
-                def kotlin_version = "1.8.10"
+                val kotlin_version = "1.8.10"
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+            }
+            if (requested.id.namespace == "com.github.dcendents") {
+                useModule("com.github.dcendents:android-maven-gradle-plugin:1.5")
             }
         }
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
-        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        mavenLocal()
+        google()
+        maven {
+            setUrl("https://jitpack.io")
+        }
     }
 }
+
+include(":lib")
 rootProject.name = "dview-alert-dialog"
-include ':lib'

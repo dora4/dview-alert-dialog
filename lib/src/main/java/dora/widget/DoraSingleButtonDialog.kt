@@ -9,7 +9,7 @@ import dora.widget.alertdialog.R
 /**
  * 简版提示信息弹窗，不怎么会用到。
  */
-class DoraSingleButtonDialog(activity: Activity, private var listener: DialogListener? = null) :
+class DoraSingleButtonDialog(activity: Activity, val canceledOnTouchOutside: Boolean = true, private var listener: DialogListener? = null) :
     BaseTipsDialog(activity), View.OnClickListener {
 
     private lateinit var tvContent: TextView
@@ -23,7 +23,7 @@ class DoraSingleButtonDialog(activity: Activity, private var listener: DialogLis
 
     init {
         initViews()
-        setCanceledOnTouchOutside(true)
+        setCanceledOnTouchOutside(canceledOnTouchOutside)
     }
 
     override fun initViews() {
