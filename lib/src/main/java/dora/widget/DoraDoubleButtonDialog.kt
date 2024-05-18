@@ -11,8 +11,11 @@ import dora.widget.alertdialog.R
 /**
  * 带有确认和取消两个按钮的弹窗，能够满足大部分提示信息弹窗需求。
  */
-class DoraDoubleButtonDialog(activity: Activity, canceledOnTouchOutside: Boolean? = null, private var listener: DialogListener? = null) : BaseTipsDialog(activity),
-    View.OnClickListener {
+class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
+                                                       private var listener: DialogListener? = null,
+                                                       canceledOnTouchOutside: Boolean? = null)
+                                                        : BaseTipsDialog(activity),
+                                                            View.OnClickListener {
 
     private lateinit var tvContent: TextView
     private lateinit var tvCancel: TextView
@@ -42,6 +45,9 @@ class DoraDoubleButtonDialog(activity: Activity, canceledOnTouchOutside: Boolean
         tvConfirm.setOnClickListener(this)
     }
 
+    /**
+     * 显示对话框。
+     */
     @JvmOverloads
     fun show(eventType: String,
              message: String,

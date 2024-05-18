@@ -22,6 +22,9 @@ import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
 import dora.widget.alertdialog.R
 
+/**
+ * 号称很强大的kotlin版本提示信息框，可以自定义布局内容。
+ */
 class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
 
     private var onPositive: View.OnClickListener? = null

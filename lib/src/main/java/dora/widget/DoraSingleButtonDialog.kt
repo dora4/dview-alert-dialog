@@ -9,8 +9,10 @@ import dora.widget.alertdialog.R
 /**
  * 简版提示信息弹窗，不怎么会用到。
  */
-class DoraSingleButtonDialog(activity: Activity, canceledOnTouchOutside: Boolean? = null, private var listener: DialogListener? = null) :
-    BaseTipsDialog(activity), View.OnClickListener {
+class DoraSingleButtonDialog @JvmOverloads constructor(activity: Activity,
+                                                       private var listener: DialogListener? = null,
+                                                       canceledOnTouchOutside: Boolean? = null) :
+                                                    BaseTipsDialog(activity), View.OnClickListener {
 
     private lateinit var tvContent: TextView
     private lateinit var tvConfirm: TextView
@@ -35,6 +37,9 @@ class DoraSingleButtonDialog(activity: Activity, canceledOnTouchOutside: Boolean
         tvConfirm.setOnClickListener(this)
     }
 
+    /**
+     * 显示对话框。
+     */
     fun show(eventType: String, message: String) {
         this.eventType = eventType
         tvContent.text = message
