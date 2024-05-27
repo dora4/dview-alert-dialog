@@ -13,7 +13,7 @@ allprojects {
 }
 // 添加以下代码到app模块的build.gradle
 dependencies {
-    implementation("com.github.dora4:dview-alert-dialog:1.17")
+    implementation("com.github.dora4:dview-alert-dialog:1.18")
 }
 ```
 #### 使用控件
