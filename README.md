@@ -36,5 +36,8 @@ DoraAlertDialog(this).show("提示信息") {
                 showShortToast("点击了取消按钮")
             }
         }
-
 ```
+
+#### 示例代码
+
+https://github.com/dora4/dora_samples
