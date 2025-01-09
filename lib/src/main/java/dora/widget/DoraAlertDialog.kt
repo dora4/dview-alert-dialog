@@ -134,25 +134,28 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         return view?.findViewById<T>(viewId)
     }
 
-    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.() -> Unit)? = null) {
+    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
         this.view = LayoutInflater.from(context).inflate(layoutId, null)
         build?.invoke(this)
         create()
         show()
+        return this
     }
 
-    fun show(contentView: View, build: (DoraAlertDialog.() -> Unit)? = null) {
+    fun show(contentView: View, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
         this.view = contentView
         build?.invoke(this)
         create()
         show()
+        return this
     }
 
-    fun show(message: String, build: (DoraAlertDialog.() -> Unit)? = null) {
+    fun show(message: String, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
         this.message = message
         build?.invoke(this)
         create()
         show()
+        return this
     }
 
     private fun init() {
