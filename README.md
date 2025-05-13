@@ -1,6 +1,7 @@
 dview-alert-dialog
 ![Release](https://jitpack.io/v/dora4/dview-alert-dialog.svg)
 --------------------------------
+![DORA视图 通告裁决者](https://github.com/user-attachments/assets/b591d3eb-29d2-4842-892d-37daac5a57d6)
 
 ##### 卡名：Dora视图 AlertDialog 
 ###### 卡片类型：效果怪兽
