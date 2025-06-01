@@ -79,6 +79,10 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         this.title = title
     }
 
+    fun message(message: String) {
+        this.message = message
+    }
+
     fun positiveButton(positiveLabel: String) {
         this.positiveLabel = positiveLabel
     }
