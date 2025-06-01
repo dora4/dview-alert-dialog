@@ -31,8 +31,6 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     private var onNegative: View.OnClickListener? = null
     private var onDismiss: DialogInterface.OnDismissListener? = null
     private var view: View? = null
-    private var positiveButton: Button? = null
-    private var negativeButton: Button? = null
     @ColorInt
     private var themeColor: Int = Color.BLACK
     private var isFullScreen = false
@@ -47,6 +45,14 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     private var buttonVisible = true
     private lateinit var positiveLabel: String
     private lateinit var negativeLabel: String
+
+    private val positiveButton: Button by lazy {
+        Button(context)
+    }
+
+    private val negativeButton: Button by lazy {
+        Button(context)
+    }
 
     private val titleTextView: TextView by lazy {
         TextView(context)
@@ -93,10 +99,6 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         messageTextView.text = message
     }
 
-    fun positiveButton(positiveLabel: String) {
-        this.positiveLabel = positiveLabel
-    }
-
     fun themeColor(@ColorInt color: Int) {
         this.themeColor = color
     }
@@ -113,8 +115,14 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         this.messageTextColor = textColor
     }
 
+    fun positiveButton(positiveLabel: String) {
+        this.positiveLabel = positiveLabel
+        positiveButton.text = positiveLabel
+    }
+
     fun negativeButton(negativeLabel: String) {
         this.negativeLabel = negativeLabel
+        negativeButton.text = negativeLabel
     }
 
     fun positiveListener(listener: View.OnClickListener) {
@@ -244,32 +252,30 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         bottomLayout.layoutParams =
             LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 40f))
         bottomLayout.orientation = LinearLayout.HORIZONTAL
-        positiveButton = Button(context)
-        positiveButton!!.layoutParams =
+        positiveButton.layoutParams =
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
-        positiveButton!!.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
-        positiveButton!!.setOnClickListener {
+        positiveButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
+        positiveButton.setOnClickListener {
             dismiss()
             onPositive?.onClick(it)
         }
-        negativeButton = Button(context)
-        negativeButton!!.layoutParams =
+        negativeButton.layoutParams =
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
-        negativeButton!!.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
-        negativeButton!!.setOnClickListener {
+        negativeButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
+        negativeButton.setOnClickListener {
             dismiss()
             onNegative?.onClick(it)
         }
         if (positiveLabel.isNotEmpty()) {
-            positiveButton!!.text = positiveLabel
-            positiveButton!!.setTextColor(themeColor)
+            positiveButton.text = positiveLabel
+            positiveButton.setTextColor(themeColor)
         } else {
-            positiveButton!!.visibility = View.GONE
+            positiveButton.visibility = View.GONE
         }
         if (negativeLabel.isNotEmpty()) {
-            negativeButton!!.text = negativeLabel
+            negativeButton.text = negativeLabel
         } else {
-            negativeButton!!.visibility = View.GONE
+            negativeButton.visibility = View.GONE
         }
         val horizontalDivider = View(context)
         horizontalDivider.layoutParams =
