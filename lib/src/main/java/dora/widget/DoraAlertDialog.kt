@@ -47,8 +47,14 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     private var buttonVisible = true
     private lateinit var positiveLabel: String
     private lateinit var negativeLabel: String
-    private lateinit var titleTextView: TextView
-    private lateinit var messageTextView: TextView
+
+    private val titleTextView: TextView by lazy {
+        TextView(context)
+    }
+
+    private val messageTextView: TextView by lazy {
+        TextView(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -182,7 +188,6 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT)
         topLayout.gravity = Gravity.CENTER_VERTICAL
-        titleTextView = TextView(context)
         titleTextView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -221,7 +226,6 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
             params.addRule(RelativeLayout.CENTER_IN_PARENT)
             layoutContainer.addView(this.view, params)
         } else {
-            messageTextView = TextView(context)
             messageTextView.text = message
             messageTextView.textSize = messageTextSize
             messageTextView.setTextColor(messageTextColor)
