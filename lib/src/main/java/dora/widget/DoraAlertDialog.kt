@@ -156,17 +156,18 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         return view?.findViewById<T>(viewId)
     }
 
-    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
-        this.view = LayoutInflater.from(context).inflate(layoutId, null)
-        build?.invoke(this)
+    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
+        val contentView = LayoutInflater.from(context).inflate(layoutId, null)
+        this.view = contentView
+        build?.invoke(this, contentView)
         create()
         show()
         return this
     }
 
-    fun show(contentView: View, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
+    fun show(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
         this.view = contentView
-        build?.invoke(this)
+        build?.invoke(this, contentView)
         create()
         show()
         return this
@@ -325,5 +326,14 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
         setOnDismissListener {
             onDismiss?.onDismiss(it)
         }
+    }
+
+    companion object {
+        val ID_INPUT_ONE = R.id.et_dview_input
+        val ID_INPUT_TWO = R.id.et_dview_input2
+        val ID_INPUT_THREE = R.id.et_dview_input3
+        val ID_INPUT_FOUR = R.id.et_dview_input4
+        val ID_INPUT_FIVE = R.id.et_dview_input5
+        val ID_INPUT_SIX = R.id.et_dview_input6
     }
 }
