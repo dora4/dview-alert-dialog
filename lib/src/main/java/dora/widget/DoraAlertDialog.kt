@@ -25,7 +25,8 @@ import dora.widget.alertdialog.R
 /**
  * 号称很强大的kotlin版本提示信息框，可以自定义布局内容。
  */
-class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
+class DoraAlertDialog private constructor(context: Context) :
+    AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
 
     private var onPositive: View.OnClickListener? = null
     private var onNegative: View.OnClickListener? = null
@@ -329,11 +330,24 @@ class DoraAlertDialog(context: Context) : AppCompatDialog(context, R.style.DoraV
     }
 
     companion object {
+
         val ID_INPUT_ONE = R.id.et_dview_input
         val ID_INPUT_TWO = R.id.et_dview_input2
         val ID_INPUT_THREE = R.id.et_dview_input3
         val ID_INPUT_FOUR = R.id.et_dview_input4
         val ID_INPUT_FIVE = R.id.et_dview_input5
         val ID_INPUT_SIX = R.id.et_dview_input6
+
+        @Volatile
+        private var instance: DoraAlertDialog? = null
+
+        @JvmStatic
+        fun create(context: Context): DoraAlertDialog {
+            // 使用 applicationContext 避免内存泄漏
+            val appContext = context.applicationContext
+            return instance ?: synchronized(this) {
+                instance ?: DoraAlertDialog(appContext).also { instance = it }
+            }
+        }
     }
 }
