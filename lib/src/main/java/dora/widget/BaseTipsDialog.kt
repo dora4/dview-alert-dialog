@@ -1,7 +1,6 @@
 package dora.widget
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.IBinder
@@ -15,9 +14,10 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatDialog
 import dora.widget.alertdialog.R
 
-open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : Dialog(context, themeResId) {
+open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : AppCompatDialog(context, themeResId) {
 
     private var linearLayoutRoot: LinearLayout? = null
     var contentView: View? = null
