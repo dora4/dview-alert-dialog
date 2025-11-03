@@ -30,9 +30,9 @@ class DoraSingleButtonDialog @JvmOverloads constructor(activity: Activity,
 
     override fun initViews() {
         setContentView(R.layout.dialog_dview_single_button)
-        tvContent = findViewById(R.id.tvContent)
-        tvConfirm = findViewById(R.id.tvConfirm)
-        llContainer = findViewById(R.id.llContainer)
+        tvContent = findViewById<TextView>(R.id.tvContent)!!
+        tvConfirm = findViewById<TextView>(R.id.tvConfirm)!!
+        llContainer = findViewById<LinearLayout>(R.id.llContainer)!!
         llContainer.setOnClickListener(this)
         tvConfirm.setOnClickListener(this)
     }

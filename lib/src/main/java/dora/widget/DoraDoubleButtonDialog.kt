@@ -35,11 +35,11 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
 
     override fun initViews() {
         setContentView(R.layout.dialog_dview_double_button)
-        tvContent = findViewById(R.id.tvContent)
-        tvTitle = findViewById(R.id.tvTitle)
-        tvCancel = findViewById(R.id.tvCancel)
-        tvConfirm = findViewById(R.id.tvConfirm)
-        rlContainer = findViewById(R.id.rlContainer)
+        tvContent = findViewById<TextView>(R.id.tvContent)!!
+        tvTitle = findViewById<TextView>(R.id.tvTitle)!!
+        tvCancel = findViewById<TextView>(R.id.tvCancel)!!
+        tvConfirm = findViewById<TextView>(R.id.tvConfirm)!!
+        rlContainer = findViewById<RelativeLayout>(R.id.rlContainer)!!
         tvCancel.setOnClickListener(this)
         rlContainer.setOnClickListener(this)
         tvConfirm.setOnClickListener(this)
