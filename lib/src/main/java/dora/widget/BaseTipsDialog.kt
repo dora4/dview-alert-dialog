@@ -92,7 +92,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : AppCom
             // 根据资源ID获取响应的尺寸值
             statusBarHeight = resources.getDimensionPixelSize(resourceId)
         }
-        val isSamSung = false // 三星s8适配 18.5:9屏幕
+        val isSamSung = false
         val showTopPadding: Int = if (isSamSung) {
             location[1] + height
         } else {

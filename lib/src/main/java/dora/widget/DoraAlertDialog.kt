@@ -68,82 +68,100 @@ class DoraAlertDialog private constructor(context: Context) :
         init()
     }
 
-    fun width(width: Int) {
+    fun width(width: Int) : DoraAlertDialog {
         this.width = width
+        return this
     }
 
-    fun height(height: Int) {
+    fun height(height: Int) : DoraAlertDialog {
         this.height = height
+        return this
     }
 
-    fun hideBottomButtons() {
+    fun hideBottomButtons() : DoraAlertDialog {
         this.buttonVisible = false
         canCancel(true)
+        return this
     }
 
-    fun size(width: Int, height: Int) {
+    fun size(width: Int, height: Int) : DoraAlertDialog {
         width(width)
         height(height)
+        return this
     }
 
-    fun contentView(contentView: View) {
+    fun contentView(contentView: View) : DoraAlertDialog {
         this.view = contentView
+        return this
     }
 
-    fun title(title: String) {
+    fun title(title: String) : DoraAlertDialog {
         this.title = title
         titleTextView.text = title
+        return this
     }
 
-    fun message(message: String) {
+    fun message(message: String) : DoraAlertDialog {
         this.message = message
         messageTextView.text = message
+        return this
     }
 
-    fun themeColor(@ColorInt color: Int) {
+    fun themeColor(@ColorInt color: Int) : DoraAlertDialog {
         this.themeColor = color
+        return this
     }
 
-    fun themeColorResId(@ColorRes colorResId: Int) {
+    fun themeColorResId(@ColorRes colorResId: Int) : DoraAlertDialog {
         this.themeColor = ContextCompat.getColor(context, colorResId)
+        return this
     }
 
-    fun titleTextSize(textSize: Float) {
+    fun titleTextSize(textSize: Float) : DoraAlertDialog {
         this.titleTextSize = textSize
+        return this
     }
 
-    fun messageTextColor(@ColorInt textColor: Int) {
+    fun messageTextColor(@ColorInt textColor: Int) : DoraAlertDialog {
         this.messageTextColor = textColor
+        return this
     }
 
-    fun positiveButton(positiveLabel: String) {
+    fun positiveButton(positiveLabel: String) : DoraAlertDialog {
         this.positiveLabel = positiveLabel
         positiveButton.text = positiveLabel
+        return this
     }
 
-    fun negativeButton(negativeLabel: String) {
+    fun negativeButton(negativeLabel: String) : DoraAlertDialog {
         this.negativeLabel = negativeLabel
         negativeButton.text = negativeLabel
+        return this
     }
 
-    fun positiveListener(listener: View.OnClickListener) {
+    fun positiveListener(listener: View.OnClickListener) : DoraAlertDialog {
         this.onPositive = listener
+        return this
     }
 
-    fun negativeListener(listener: View.OnClickListener) {
+    fun negativeListener(listener: View.OnClickListener) : DoraAlertDialog {
         this.onNegative = listener
+        return this
     }
 
-    fun dismissListener(listener: DialogInterface.OnDismissListener) {
+    fun dismissListener(listener: DialogInterface.OnDismissListener) : DoraAlertDialog {
         this.onDismiss = listener
+        return this
     }
 
-    fun fullScreen(isFullScreen: Boolean) {
+    fun fullScreen(isFullScreen: Boolean) : DoraAlertDialog {
         this.isFullScreen = isFullScreen
+        return this
     }
 
-    fun canCancel(isCancel: Boolean) {
+    fun canCancel(isCancel: Boolean) : DoraAlertDialog {
         this.isCancel = isCancel
+        return this
     }
 
     private fun dp2px(context: Context, dpVal: Float): Int {
