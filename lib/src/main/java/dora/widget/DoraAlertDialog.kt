@@ -361,10 +361,8 @@ class DoraAlertDialog private constructor(context: Context) :
 
         @JvmStatic
         fun create(context: Context): DoraAlertDialog {
-            // 使用 applicationContext 避免内存泄漏
-            val appContext = context.applicationContext
             return instance ?: synchronized(this) {
-                instance ?: DoraAlertDialog(appContext).also { instance = it }
+                instance ?: DoraAlertDialog(context).also { instance = it }
             }
         }
     }
