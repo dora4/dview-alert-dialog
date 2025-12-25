@@ -23,7 +23,7 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : AppCom
 
     private var linearLayoutRoot: LinearLayout? = null
     @ColorInt
-    private var themeColor: Int = 0
+    protected var themeColor: Int = 0
 
     protected var contentView: View? = null
         private set
