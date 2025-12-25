@@ -67,6 +67,8 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
             tvCancel.text = negativeLabel
         }
         block?.invoke(this)
+        tvTitle.setTextColor(themeColor)
+        tvConfirm.setTextColor(themeColor)
         show()
         return this
     }

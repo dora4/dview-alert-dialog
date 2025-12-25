@@ -12,25 +12,35 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDialog
+import androidx.core.content.ContextCompat
 import dora.widget.alertdialog.R
 
 open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : AppCompatDialog(context, themeResId) {
 
     private var linearLayoutRoot: LinearLayout? = null
-    var contentView: View? = null
+    @ColorInt
+    protected var themeColor: Int = 0
+
+    protected var contentView: View? = null
         private set
 
     constructor(activity: Activity) : this(activity, R.style.DoraView_Theme_Widget_TipsDialog)
 
     init {
         try {
+            themeColor = ContextCompat.getColor(context, R.color.colorPrimary)
             setOwnerActivity(context)
             superInitViews()
         } catch (ignore: Exception) {
         }
+    }
+
+    @ColorInt fun getThemeColor() : Int {
+        return themeColor
     }
 
     private fun superInitViews() {

@@ -44,6 +44,7 @@ class DoraSingleButtonDialog @JvmOverloads constructor(activity: Activity,
         this.eventType = eventType
         tvContent.text = message
         block?.invoke(this)
+        tvConfirm.setTextColor(themeColor)
         show()
         return this
     }

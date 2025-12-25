@@ -22,7 +22,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="@string/warm_prompt"
-            android:textColor="@color/text_dialog_content_single"
             android:textSize="17sp" />
 
         <TextView
@@ -73,7 +72,6 @@
                 android:gravity="center"
                 android:background="@drawable/selector_dview_dialog_btn_right"
                 android:text="@string/confirm"
-                android:textColor="@color/text_btn_confirm"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
