@@ -53,7 +53,8 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
              message: String,
              title: String? = null,
              positiveLabel: String? = null,
-             negativeLabel: String? = null) : DoraDoubleButtonDialog {
+             negativeLabel: String? = null,
+             block: (DoraDoubleButtonDialog.() -> Unit)? = null) : DoraDoubleButtonDialog {
         this.eventType = eventType
         tvContent.text = message
         title?.let {
@@ -65,6 +66,7 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
         negativeLabel?.let {
             tvCancel.text = negativeLabel
         }
+        block?.invoke(this)
         show()
         return this
     }
@@ -76,7 +78,9 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
              message: String,
              title: String? = null,
              @StringRes positiveResId: Int,
-             @StringRes negativeResId: Int? = null) : DoraDoubleButtonDialog {
+             @StringRes negativeResId: Int? = null,
+             block: (DoraDoubleButtonDialog.() -> Unit)? = null
+    ) : DoraDoubleButtonDialog {
         this.eventType = eventType
         tvContent.text = message
         title?.let {
@@ -86,6 +90,7 @@ class DoraDoubleButtonDialog @JvmOverloads constructor(activity: Activity,
         negativeResId?.let {
             tvCancel.text = ContextCompat.getString(context, it)
         }
+        block?.invoke(this)
         show()
         return this
     }

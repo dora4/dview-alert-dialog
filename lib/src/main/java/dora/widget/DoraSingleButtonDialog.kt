@@ -40,9 +40,10 @@ class DoraSingleButtonDialog @JvmOverloads constructor(activity: Activity,
     /**
      * 显示对话框。
      */
-    fun show(eventType: String, message: String) : DoraSingleButtonDialog {
+    fun show(eventType: String, message: String, block: (DoraSingleButtonDialog.() -> Unit)? = null) : DoraSingleButtonDialog {
         this.eventType = eventType
         tvContent.text = message
+        block?.invoke(this)
         show()
         return this
     }

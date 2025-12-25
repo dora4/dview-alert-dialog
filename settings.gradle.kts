@@ -10,7 +10,7 @@ pluginManagement {
                 useModule("com.android.tools.build:gradle:8.1.0")
             }
             if (requested.id.namespace == "org.jetbrains.kotlin") {
-                val kotlin_version = "1.8.10"
+                val kotlin_version = "2.2.21"
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
             }
             if (requested.id.namespace == "com.github.dcendents") {
