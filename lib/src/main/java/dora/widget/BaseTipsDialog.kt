@@ -39,10 +39,6 @@ open class BaseTipsDialog(context: Activity, @StyleRes themeResId: Int) : AppCom
         }
     }
 
-    @ColorInt fun getThemeColor() : Int {
-        return themeColor
-    }
-
     private fun superInitViews() {
         linearLayoutRoot = LinearLayout(context)
         linearLayoutRoot!!.setBackgroundColor(Color.parseColor("#00000000"))
