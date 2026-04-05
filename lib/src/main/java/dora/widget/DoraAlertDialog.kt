@@ -276,15 +276,15 @@ class DoraAlertDialog private constructor(context: Context) :
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
         positiveButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
         positiveButton.setOnClickListener {
-            dismiss()
             onPositive?.onClick(it)
+            dismiss()
         }
         negativeButton.layoutParams =
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
         negativeButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
         negativeButton.setOnClickListener {
-            dismiss()
             onNegative?.onClick(it)
+            dismiss()
         }
         if (positiveLabel.isNotEmpty()) {
             positiveButton.text = positiveLabel
@@ -356,14 +356,9 @@ class DoraAlertDialog private constructor(context: Context) :
         val ID_INPUT_FIVE = R.id.et_dview_input5
         val ID_INPUT_SIX = R.id.et_dview_input6
 
-        @Volatile
-        private var instance: DoraAlertDialog? = null
-
         @JvmStatic
         fun create(context: Context): DoraAlertDialog {
-            return instance ?: synchronized(this) {
-                instance ?: DoraAlertDialog(context).also { instance = it }
-            }
+            return DoraAlertDialog(context)
         }
     }
 }
