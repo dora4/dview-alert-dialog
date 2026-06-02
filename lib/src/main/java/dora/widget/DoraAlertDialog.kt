@@ -228,14 +228,14 @@ class DoraAlertDialog private constructor(context: Context) :
         return this
     }
     
-    fun interface OnBuildListener {
+    interface OnBuildListener {
         fun onBuild(dialog: DoraAlertDialog, contentView: View)
     }
 
     fun showCustom(
         @LayoutRes layoutId: Int,
         listener: OnBuildListener? = null
-    ): MyAlertDialog {
+    ): DoraAlertDialog {
         val contentView = LayoutInflater.from(context).inflate(layoutId, null)
         this.contentView = contentView
         listener?.onBuild(this, contentView)
