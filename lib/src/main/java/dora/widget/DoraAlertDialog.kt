@@ -227,11 +227,40 @@ class DoraAlertDialog private constructor(context: Context) :
         show()
         return this
     }
+    
+    fun interface OnBuildListener {
+        fun onBuild(dialog: DoraAlertDialog, contentView: View)
+    }
 
+    fun showCustom(
+        @LayoutRes layoutId: Int,
+        listener: OnBuildListener? = null
+    ): MyAlertDialog {
+        val contentView = LayoutInflater.from(context).inflate(layoutId, null)
+        this.contentView = contentView
+        listener?.onBuild(this, contentView)
+        create()
+        show()
+        return this
+    }
+    
+    @JvmSynthetic
     fun showCustom(@LayoutRes layoutId: Int, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
         return show(layoutId, build)
     }
 
+    fun showCustom(
+        contentView: View,
+        listener: OnBuildListener?
+    ): DoraAlertDialog {
+        this.contentView = contentView
+        listener?.onBuild(this, contentView)
+        create()
+        show()
+        return this
+    }
+    
+    @JvmSynthetic
     fun showCustom(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
         return show(contentView, build)
     }
@@ -296,31 +325,6 @@ class DoraAlertDialog private constructor(context: Context) :
             positive?.invoke(editText.text.toString())
         }
         return this
-    }
-
-    /**
-     * 创建简单输入弹窗，并返回一个文本框。
-     *
-     * 示例：
-     *
-     * val et = DoraAlertDialog.create(this)
-     *     .title("修改昵称")
-     *     .inputView("请输入昵称")
-     *
-     * dialog.positiveListener {
-     *     val text = et.text.toString()
-     * }
-     */
-    fun inputView(
-        hint: String = "",
-        defaultValue: String = ""
-    ): EditText {
-        val et = EditText(context)
-        et.id = ID_INPUT_ONE
-        et.hint = hint
-        et.setText(defaultValue)
-        contentView(et)
-        return et
     }
 
     private fun init() {
