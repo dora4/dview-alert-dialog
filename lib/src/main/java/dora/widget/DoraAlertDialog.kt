@@ -185,7 +185,7 @@ class DoraAlertDialog private constructor(context: Context) :
     }
 
     fun <T : View> getView(viewId: Int): T? {
-        return view?.findViewById<T>(viewId)
+        return this.contentView?.findViewById<T>(viewId)
     }
 
     @Deprecated(
