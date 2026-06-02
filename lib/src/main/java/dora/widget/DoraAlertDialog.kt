@@ -36,7 +36,7 @@ class DoraAlertDialog private constructor(context: Context) :
     private var positiveClickListener: View.OnClickListener? = null
     private var negativeClickListener: View.OnClickListener? = null
     private var dismissListener: DialogInterface.OnDismissListener? = null
-    private var view: View? = null
+    private var contentView: View? = null
 
     @ColorInt
     private var themeColor: Int = Color.BLACK
@@ -89,7 +89,7 @@ class DoraAlertDialog private constructor(context: Context) :
     }
 
     fun contentView(contentView: View): DoraAlertDialog {
-        this.view = contentView
+        this.contentView = contentView
         return this
     }
 
@@ -197,7 +197,7 @@ class DoraAlertDialog private constructor(context: Context) :
         build: (DoraAlertDialog.(View) -> Unit)? = null
     ): DoraAlertDialog {
         val contentView = LayoutInflater.from(context).inflate(layoutId, null)
-        this.view = contentView
+        this.contentView = contentView
         build?.invoke(this, contentView)
         create()
         show()
@@ -209,7 +209,7 @@ class DoraAlertDialog private constructor(context: Context) :
         replaceWith = ReplaceWith("showCustom()")
     )
     fun show(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null): DoraAlertDialog {
-        this.view = contentView
+        this.contentView = contentView
         build?.invoke(this, contentView)
         create()
         show()
@@ -375,13 +375,13 @@ class DoraAlertDialog private constructor(context: Context) :
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        if (this.view != null) {
+        if (this.contentView != null) {
             val params = RelativeLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             params.addRule(RelativeLayout.CENTER_IN_PARENT)
-            layoutContainer.addView(this.view, params)
+            layoutContainer.addView(this.contentView, params)
         } else {
             messageTextView.text = message
             messageTextView.textSize = messageTextSize
