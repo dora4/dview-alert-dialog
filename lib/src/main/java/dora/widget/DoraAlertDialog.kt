@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -28,10 +29,15 @@ import dora.widget.alertdialog.R
 class DoraAlertDialog private constructor(context: Context) :
     AppCompatDialog(context, R.style.DoraView_Theme_Widget_AlertDialog) {
 
-    private var onPositive: View.OnClickListener? = null
-    private var onNegative: View.OnClickListener? = null
-    private var onDismiss: DialogInterface.OnDismissListener? = null
+    private var onPositive: (() -> Unit)? = null
+    private var onNegative: (() -> Unit)? = null
+    private var onDismiss: (() -> Unit)? = null
+
+    private var positiveClickListener: View.OnClickListener? = null
+    private var negativeClickListener: View.OnClickListener? = null
+    private var dismissListener: DialogInterface.OnDismissListener? = null
     private var view: View? = null
+
     @ColorInt
     private var themeColor: Int = Color.BLACK
     private var isFullScreen = false
@@ -44,122 +50,129 @@ class DoraAlertDialog private constructor(context: Context) :
     private var title: String = ""
     private var message: String = ""
     private var buttonVisible = true
-    private lateinit var positiveLabel: String
-    private lateinit var negativeLabel: String
-
-    private val positiveButton: Button by lazy {
-        Button(context)
-    }
-
-    private val negativeButton: Button by lazy {
-        Button(context)
-    }
-
-    private val titleTextView: TextView by lazy {
-        TextView(context)
-    }
-
-    private val messageTextView: TextView by lazy {
-        TextView(context)
-    }
+    private var positiveLabel = ""
+    private var negativeLabel = ""
+    private lateinit var positiveButton: Button
+    private lateinit var negativeButton: Button
+    private lateinit var titleTextView: TextView
+    private lateinit var messageTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        positiveButton = Button(context)
+        negativeButton = Button(context)
+        titleTextView = TextView(context)
+        messageTextView = TextView(context)
         init()
     }
 
-    fun width(width: Int) : DoraAlertDialog {
+    fun width(width: Int): DoraAlertDialog {
         this.width = width
         return this
     }
 
-    fun height(height: Int) : DoraAlertDialog {
+    fun height(height: Int): DoraAlertDialog {
         this.height = height
         return this
     }
 
-    fun hideBottomButtons() : DoraAlertDialog {
+    fun hideBottomButtons(): DoraAlertDialog {
         this.buttonVisible = false
         canCancel(true)
         return this
     }
 
-    fun size(width: Int, height: Int) : DoraAlertDialog {
+    fun size(width: Int, height: Int): DoraAlertDialog {
         width(width)
         height(height)
         return this
     }
 
-    fun contentView(contentView: View) : DoraAlertDialog {
+    fun contentView(contentView: View): DoraAlertDialog {
         this.view = contentView
         return this
     }
 
-    fun title(title: String) : DoraAlertDialog {
+    fun title(title: String): DoraAlertDialog {
         this.title = title
         titleTextView.text = title
         return this
     }
 
-    fun message(message: String) : DoraAlertDialog {
+    fun message(message: String): DoraAlertDialog {
         this.message = message
         messageTextView.text = message
         return this
     }
 
-    fun themeColor(@ColorInt color: Int) : DoraAlertDialog {
+    fun themeColor(@ColorInt color: Int): DoraAlertDialog {
         this.themeColor = color
         return this
     }
 
-    fun themeColorResId(@ColorRes colorResId: Int) : DoraAlertDialog {
+    fun themeColorResId(@ColorRes colorResId: Int): DoraAlertDialog {
         this.themeColor = ContextCompat.getColor(context, colorResId)
         return this
     }
 
-    fun titleTextSize(textSize: Float) : DoraAlertDialog {
+    fun titleTextSize(textSize: Float): DoraAlertDialog {
         this.titleTextSize = textSize
         return this
     }
 
-    fun messageTextColor(@ColorInt textColor: Int) : DoraAlertDialog {
+    fun messageTextColor(@ColorInt textColor: Int): DoraAlertDialog {
         this.messageTextColor = textColor
         return this
     }
 
-    fun positiveButton(positiveLabel: String) : DoraAlertDialog {
+    fun positiveButton(positiveLabel: String): DoraAlertDialog {
         this.positiveLabel = positiveLabel
         positiveButton.text = positiveLabel
         return this
     }
 
-    fun negativeButton(negativeLabel: String) : DoraAlertDialog {
+    fun negativeButton(negativeLabel: String): DoraAlertDialog {
         this.negativeLabel = negativeLabel
         negativeButton.text = negativeLabel
         return this
     }
 
-    fun positiveListener(listener: View.OnClickListener) : DoraAlertDialog {
-        this.onPositive = listener
+    fun positiveListener(block: () -> Unit): DoraAlertDialog {
+        this.onPositive = block
         return this
     }
 
-    fun negativeListener(listener: View.OnClickListener) : DoraAlertDialog {
-        this.onNegative = listener
+    fun negativeListener(block: () -> Unit): DoraAlertDialog {
+        this.onNegative = block
         return this
     }
 
-    fun dismissListener(listener: DialogInterface.OnDismissListener) : DoraAlertDialog {
-        this.onDismiss = listener
+    fun dismissListener(block: () -> Unit): DoraAlertDialog {
+        this.onDismiss = block
         return this
     }
 
-    fun fullScreen(isFullScreen: Boolean) : DoraAlertDialog {
+    fun positiveListener(listener: View.OnClickListener): DoraAlertDialog {
+        this.positiveClickListener = listener
+        return this
+    }
+
+    fun negativeListener(listener: View.OnClickListener): DoraAlertDialog {
+        this.negativeClickListener = listener
+        return this
+    }
+
+    fun dismissListener(listener: DialogInterface.OnDismissListener): DoraAlertDialog {
+        this.dismissListener = listener
+        return this
+    }
+
+    fun fullScreen(isFullScreen: Boolean): DoraAlertDialog {
         this.isFullScreen = isFullScreen
         return this
     }
 
-    fun canCancel(isCancel: Boolean) : DoraAlertDialog {
+    fun canCancel(isCancel: Boolean): DoraAlertDialog {
         this.isCancel = isCancel
         return this
     }
@@ -171,11 +184,18 @@ class DoraAlertDialog private constructor(context: Context) :
         ).toInt()
     }
 
-    fun <T : View> getView(viewId: Int) : T? {
+    fun <T : View> getView(viewId: Int): T? {
         return view?.findViewById<T>(viewId)
     }
 
-    fun show(@LayoutRes layoutId: Int, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
+    @Deprecated(
+        message = "Use showCustom() instead.",
+        replaceWith = ReplaceWith("showCustom()")
+    )
+    fun show(
+        @LayoutRes layoutId: Int,
+        build: (DoraAlertDialog.(View) -> Unit)? = null
+    ): DoraAlertDialog {
         val contentView = LayoutInflater.from(context).inflate(layoutId, null)
         this.view = contentView
         build?.invoke(this, contentView)
@@ -184,7 +204,11 @@ class DoraAlertDialog private constructor(context: Context) :
         return this
     }
 
-    fun show(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
+    @Deprecated(
+        message = "Use showCustom() instead.",
+        replaceWith = ReplaceWith("showCustom()")
+    )
+    fun show(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null): DoraAlertDialog {
         this.view = contentView
         build?.invoke(this, contentView)
         create()
@@ -192,12 +216,111 @@ class DoraAlertDialog private constructor(context: Context) :
         return this
     }
 
-    fun show(message: String, build: (DoraAlertDialog.() -> Unit)? = null) : DoraAlertDialog {
+    @Deprecated(
+        message = "Use showMessage() instead.",
+        replaceWith = ReplaceWith("showMessage()")
+    )
+    fun show(message: String, build: (DoraAlertDialog.() -> Unit)? = null): DoraAlertDialog {
         this.message = message
         build?.invoke(this)
         create()
         show()
         return this
+    }
+
+    fun showCustom(@LayoutRes layoutId: Int, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
+        return show(layoutId, build)
+    }
+
+    fun showCustom(contentView: View, build: (DoraAlertDialog.(View) -> Unit)? = null) : DoraAlertDialog {
+        return show(contentView, build)
+    }
+
+    /**
+     * 创建简单信息对话框。
+     *
+     * 示例：
+     *
+     * DoraAlertDialog.create(this)
+     *     .info(
+     *         title = "提示",
+     *         message = "兑换成功"
+     *     )
+     */
+    fun info(
+        message: String,
+        title: String = "",
+        positiveText: String = context.getString(R.string.confirm),
+        callback: (() -> Unit)? = null
+    ): DoraAlertDialog {
+        this.title(title)
+        this.message(message)
+        negativeButton("")
+        positiveButton(positiveText)
+        positiveListener {
+            callback?.invoke()
+        }
+        create()
+        show()
+        return this
+    }
+
+    /**
+     * 创建简单输入弹窗。
+     *
+     * 示例：
+     *
+     * DoraAlertDialog.create(this)
+     *     .title("请输入昵称")
+     *     .input(
+     *         hint = "昵称"
+     *     ) {
+     *         nickname ->
+     *         updateNickname(nickname)
+     *     }
+     *     .show()
+     */
+    fun input(
+        hint: String = "",
+        defaultValue: String = "",
+        positive: ((String) -> Unit)? = null
+    ): DoraAlertDialog {
+        val editText = EditText(context).apply {
+            id = ID_INPUT_ONE
+            setHint(hint)
+            setText(defaultValue)
+            setSelection(text.length)
+        }
+        contentView(editText)
+        positiveListener {
+            positive?.invoke(editText.text.toString())
+        }
+        return this
+    }
+
+    /**
+     * 创建简单输入弹窗，并返回一个文本框。
+     *
+     * 示例：
+     *
+     * val et = DoraAlertDialog.create(this)
+     *     .title("修改昵称")
+     *     .inputView("请输入昵称")
+     *
+     * dialog.positiveListener {
+     *     val text = et.text.toString()
+     * }
+     */
+    fun inputView(
+        hint: String = "",
+        defaultValue: String = ""
+    ): EditText {
+        val et = EditText(context)
+        et.id = ID_INPUT_ONE
+        et.hint = hint
+        et.setText(defaultValue)
+        contentView(et)
+        return et
     }
 
     private fun init() {
@@ -213,8 +336,10 @@ class DoraAlertDialog private constructor(context: Context) :
         dialogLayout.setBackgroundColor(Color.WHITE)
         val topLayout = LinearLayout(context)
         topLayout.layoutParams =
-            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
         topLayout.gravity = Gravity.CENTER_VERTICAL
         titleTextView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -276,14 +401,16 @@ class DoraAlertDialog private constructor(context: Context) :
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
         positiveButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
         positiveButton.setOnClickListener {
-            onPositive?.onClick(it)
+            onPositive?.invoke()
+            positiveClickListener?.onClick(it)
             dismiss()
         }
         negativeButton.layoutParams =
             LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
         negativeButton.setBackgroundResource(R.drawable.selector_dview_alert_dialog_bottom_button)
         negativeButton.setOnClickListener {
-            onNegative?.onClick(it)
+            onNegative?.invoke()
+            negativeClickListener?.onClick(it)
             dismiss()
         }
         if (positiveLabel.isNotEmpty()) {
@@ -343,7 +470,8 @@ class DoraAlertDialog private constructor(context: Context) :
         window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(dialogLayout)
         setOnDismissListener {
-            onDismiss?.onDismiss(it)
+            onDismiss?.invoke()
+            dismissListener?.onDismiss(it)
         }
     }
 
@@ -356,9 +484,86 @@ class DoraAlertDialog private constructor(context: Context) :
         val ID_INPUT_FIVE = R.id.et_dview_input5
         val ID_INPUT_SIX = R.id.et_dview_input6
 
+        /**
+         * 创建对话框实例。
+         *
+         * 示例：
+         *
+         * DoraAlertDialog.create(this)
+         *     .title("提示")
+         *     .message("保存成功")
+         *     .show()
+         */
         @JvmStatic
         fun create(context: Context): DoraAlertDialog {
             return DoraAlertDialog(context)
+        }
+
+        /**
+         * 显示简单消息弹窗。
+         *
+         * 示例：
+         *
+         * DoraAlertDialog.showMessage(
+         *     context = this,
+         *     message = "保存成功"
+         * )
+         */
+        @JvmStatic
+        fun showMessage(
+            context: Context,
+            message: String,
+            title: String = ""
+        ): DoraAlertDialog {
+            return create(context)
+                .title(title)
+                .message(message)
+                .negativeButton("")
+                .apply {
+                    create()
+                    show()
+                }
+        }
+
+        /**
+         * 显示简单输入弹窗。
+         *
+         * 示例：
+         *
+         * DoraAlertDialog.showInput(
+         *     context = this,
+         *     title = "请输入兑换码",
+         *     hint = "兑换码"
+         * ) { code ->
+         *     redeem(code)
+         * }
+         */
+        @JvmStatic
+        fun showInput(
+            context: Context,
+            title: String,
+            hint: String = "",
+            defaultValue: String = "",
+            positiveText: String = context.getString(R.string.confirm),
+            callback: (String) -> Unit
+        ): DoraAlertDialog {
+            val editText = EditText(context).apply {
+                id = ID_INPUT_ONE
+                setHint(hint)
+                setText(defaultValue)
+                setSelection(text.length)
+            }
+            return create(context)
+                .title(title)
+                .contentView(editText)
+                .positiveButton(positiveText)
+                .positiveListener {
+                    callback(editText.text.toString())
+                }
+                .apply {
+                    create()
+                    show()
+                }
         }
     }
 }
