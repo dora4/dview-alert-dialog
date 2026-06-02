@@ -22,21 +22,22 @@ allprojects {
 }
 // 添加以下代码到app模块的build.gradle
 dependencies {
-    implementation("com.github.dora4:dview-alert-dialog:1.35")
+    implementation("com.github.dora4:dview-alert-dialog:1.36")
 }
 ```
 #### 使用控件
 ```kotlin
-DoraAlertDialog.create(this).show("提示信息") {
-            title("系统消息")
-            themeColorResId(R.color.colorAccent)
-            positiveListener {
-                showShortToast("点击了确认按钮")
-            }
-            negativeListener {
-                showShortToast("点击了取消按钮")
-            }
-        }
+DoraAlertDialog.create(this)
+    .title("提示")
+    .message("保存成功")
+    .themeColorResId(R.color.colorAccent)
+    .positiveListener {
+        showShortToast("点击了确认按钮")
+    }
+    .negativeListener {
+        showShortToast("点击了取消按钮")
+    }
+    .show()
 ```
 
 #### 示例代码
