@@ -52,17 +52,24 @@ class DoraAlertDialog private constructor(context: Context) :
     private var buttonVisible = true
     private var positiveLabel = ""
     private var negativeLabel = ""
-    private lateinit var positiveButton: Button
-    private lateinit var negativeButton: Button
-    private lateinit var titleTextView: TextView
-    private lateinit var messageTextView: TextView
+    private val positiveButton: Button by lazy {
+        Button(context)
+    }
+
+    private val negativeButton: Button by lazy {
+        Button(context)
+    }
+
+    private val titleTextView: TextView by lazy {
+        TextView(context)
+    }
+
+    private val messageTextView: TextView by lazy {
+        TextView(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        positiveButton = Button(context)
-        negativeButton = Button(context)
-        titleTextView = TextView(context)
-        messageTextView = TextView(context)
         init()
     }
 
