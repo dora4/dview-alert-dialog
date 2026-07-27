@@ -32,6 +32,7 @@
             android:layout_marginTop="71dp"
             android:gravity="center_horizontal"
             android:layout_marginBottom="30dp"
+            android:autoLink="web"
             android:textColor="@color/text_dialog_content_double"
             android:textSize="15sp" />
 
