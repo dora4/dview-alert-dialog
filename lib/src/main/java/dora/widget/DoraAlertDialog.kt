@@ -344,7 +344,7 @@ class DoraAlertDialog private constructor(context: Context) :
         )
         dialogLayout.orientation = LinearLayout.VERTICAL
         dialogLayout.minimumWidth = dp2px(context, 200f)
-        dialogLayout.setBackgroundColor(Color.WHITE)
+        dialogLayout.setBackgroundColor(context.getColor(R.color.dview_color_alert_dialog_panel_fg))
         val topLayout = LinearLayout(context)
         topLayout.layoutParams =
             LinearLayout.LayoutParams(

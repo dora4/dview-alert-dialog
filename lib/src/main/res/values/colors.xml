@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorAccent">#04d5d5</color>
     <color name="colorPrimary">#04d5d5</color>
     <color name="white">#FFFFFF</color>
-    <color name="color_dialog_line_bg">#EBEDF0</color>
-    <color name="color_dialog_bg_selected">#80808080</color>
-    <color name="text_btn_cancel">#494949</color>
-    <color name="text_btn_confirm">@color/colorPrimary</color>
-    <color name="text_dialog_content_single">#010101</color>
-    <color name="text_dialog_content_double">#6C6D6E</color>
+    <color name="dview_color_alert_dialog_line_bg">#EBEDF0</color>
+    <color name="dview_color_alert_dialog_bg_selected">@color/dview_color_alert_dialog_panel_bg</color>
+    <color name="dview_color_alert_dialog_text_btn_cancel">#494949</color>
+    <color name="dview_color_alert_dialog_text_btn_confirm">@color/colorPrimary</color>
+    <color name="dview_color_alert_dialog_title">#FFFFFF</color>
+    <color name="dview_color_alert_dialog_content_single">#010101</color>
+    <color name="dview_color_alert_dialog_content_double">#6C6D6E</color>
+    <color name="dview_color_alert_dialog_panel_fg">@color/white</color>
+    <color name="dview_color_alert_dialog_panel_bg">#F5F5F9</color>
+    <color name="dview_color_alert_dialog_divider">#D3D3D3</color>
 </resources>

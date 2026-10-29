@@ -4,7 +4,7 @@
     android:shape="rectangle"
     tools:ignore="MissingDefaultResource">
 
-    <solid android:color="@color/white" />
+    <solid android:color="@color/dview_color_alert_dialog_panel_fg" />
     <corners
         android:bottomRightRadius="10dp"/>
 </shape>

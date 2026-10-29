@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#04d5d5</color>
+    <color name="colorPrimary">#04d5d5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dview_color_alert_dialog_line_bg">@color/dview_color_alert_dialog_panel_bg</color>
+    <color name="dview_color_alert_dialog_bg_selected">@color/dview_color_alert_dialog_panel_bg</color>
+    <color name="dview_color_alert_dialog_text_btn_cancel">#D3D3D3</color>
+    <color name="dview_color_alert_dialog_text_btn_confirm">@color/colorAccent</color>
+    <color name="dview_color_alert_dialog_content_single">@color/white</color>
+    <color name="dview_color_alert_dialog_content_double">#D3D3D3</color>
+    <color name="dview_color_alert_dialog_panel_fg">#43454A</color>
+    <color name="dview_color_alert_dialog_panel_bg">#2B2D30</color>
+    <color name="dview_color_alert_dialog_divider">@color/dview_color_alert_dialog_panel_bg</color>
+</resources>
